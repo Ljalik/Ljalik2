@@ -12,6 +12,9 @@ namespace Ljalik2
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Page2 : ContentPage
     {
+        TimePicker tpicker;
+        Entry entry;
+        DatePicker dpicker;
         Editor editor;
         Picker Picker;
         public Page2()
@@ -46,7 +49,30 @@ namespace Ljalik2
             editor = new Editor { Placeholder = "Vali keel \nimikirjast" };
             gr.Children.Add(editor, 1, 0);
 
+            dpicker = new DatePicker
+            {
+                Format = "0",
+                MinimumDate = DateTime.Now.AddDays(-10),    
+                MaximumDate = DateTime.Now.AddDays(10)      
+            };
+            dpicker.DateSelected += dpicker_dateselected;
+            gr.Children.Add(dpicker, 1, 1);
+
+            tpicker = new TimePicker()
+            {
+                //Time = new TimeSpan(18,0,0)
+                Time = new TimeSpan(DateTime.Now.Hour,DateTime.Now.Minute,DateTime.Now.Second)
+            };
+            gr.Children.Add(tpicker, 1, 1);
+
+            entry = new Entry { Text = "Vali kuupäev või kellaaeg" };    
+            gr.Children.Add(entry, 0, 1);   
             Content = gr;
+        }
+
+        private void dpicker_dateselected(object sender, DateChangedEventArgs e)
+        {
+            entry.Text = "Sinu kuupäev:\n" + e.NewDate.ToString();
         }
 
         private void Picker_SelectedIndexChanged(object sender, EventArgs e)
