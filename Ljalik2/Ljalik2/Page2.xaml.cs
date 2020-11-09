@@ -12,6 +12,7 @@ namespace Ljalik2
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Page2 : ContentPage
     {
+        Editor editor;
         Picker Picker;
         public Page2()
         {
@@ -41,8 +42,16 @@ namespace Ljalik2
             Picker.Items.Add("Java");
 
             gr.Children.Add(Picker, 0, 0);
+            Picker.SelectedIndexChanged += Picker_SelectedIndexChanged;
+            editor = new Editor { Placeholder = "Vali keel \nimikirjast" };
+            gr.Children.Add(editor, 1, 0);
 
             Content = gr;
+        }
+
+        private void Picker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            editor.Text = "Oli valitud" + Picker.Items[Picker.SelectedIndex];
         }
     }
 }
