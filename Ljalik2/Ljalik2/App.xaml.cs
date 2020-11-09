@@ -10,7 +10,7 @@ namespace Ljalik2
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new Page2();
         }
 
         protected override void OnStart()
